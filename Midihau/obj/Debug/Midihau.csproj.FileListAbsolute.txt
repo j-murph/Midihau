@@ -1,0 +1,14 @@
+C:\Users\PCUser\Desktop\Midihau\Midihau\obj\Debug\Midihau.Properties.Resources.resources
+C:\Users\PCUser\Desktop\Midihau\Midihau\obj\Debug\Midihau.csproj.GenerateResource.Cache
+C:\Users\PCUser\Desktop\Midihau\Midihau\obj\Debug\Midihau.csproj.CoreCompileInputs.cache
+C:\Users\PCUser\Desktop\Midihau\Midihau\obj\Debug\Midihau.csprojResolveAssemblyReference.cache
+C:\Users\PCUser\Desktop\Midihau\Midihau\bin\Debug\Midihau.exe.config
+C:\Users\PCUser\Desktop\Midihau\Midihau\bin\Debug\Midihau.exe
+C:\Users\PCUser\Desktop\Midihau\Midihau\bin\Debug\Midihau.pdb
+C:\Users\PCUser\Desktop\Midihau\Midihau\bin\Debug\alsa-sharp.dll
+C:\Users\PCUser\Desktop\Midihau\Midihau\bin\Debug\Commons.Music.Midi.dll
+C:\Users\PCUser\Desktop\Midihau\Midihau\bin\Debug\alsa-sharp.pdb
+C:\Users\PCUser\Desktop\Midihau\Midihau\bin\Debug\Commons.Music.Midi.pdb
+C:\Users\PCUser\Desktop\Midihau\Midihau\obj\Debug\Midihau.exe
+C:\Users\PCUser\Desktop\Midihau\Midihau\obj\Debug\Midihau.pdb
+C:\Users\PCUser\Desktop\Midihau\Midihau\obj\Debug\Midihau.Forms.MainForm.resources
