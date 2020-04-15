@@ -6,7 +6,6 @@ using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static Midihau.NativeMethods;
 
 namespace Midihau
 {
@@ -57,10 +56,26 @@ namespace Midihau
 
         public void Play(SimpleMidiNote note)
         {
-            OpenConsole();
-            SendPlayNoteCommand();
-            SendNoteString(note);
-            SubmitConsoleCommand();
+            if (MordhauIsActive())
+            {
+                OpenConsole();
+                SendPlayNoteCommand();
+                SendNoteString(note);
+                SubmitConsoleCommand();
+            }
+        }
+
+        private bool MordhauIsActive()
+        {
+            var foregroundWindow = NativeMethods.GetForegroundWindow();
+            if (foregroundWindow != null)
+            {
+                var sb = new StringBuilder(100, 100);
+                NativeMethods.GetWindowText(foregroundWindow, sb, sb.Capacity);
+                return sb.ToString().StartsWith("MORDHAU");
+            }
+
+            return false;
         }
 
         private void SubmitConsoleCommand()
