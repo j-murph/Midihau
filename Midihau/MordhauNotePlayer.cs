@@ -68,7 +68,7 @@ namespace Midihau
         private bool MordhauIsActive()
         {
             var foregroundWindow = NativeMethods.GetForegroundWindow();
-            if (foregroundWindow != null)
+            if (foregroundWindow != IntPtr.Zero)
             {
                 var sb = new StringBuilder(100, 100);
                 NativeMethods.GetWindowText(foregroundWindow, sb, sb.Capacity);
