@@ -96,9 +96,11 @@ namespace Midihau
         private int GetNoteId(SimpleMidiNote note)
         {
             Debug.Assert(Pitch.C == 0);
+
             var noteId = noteTable[(int)note.Pitch].Item2;
             if (note.Octave > 2)
                 noteId += 12;
+
             return noteId;
         }
 

@@ -71,11 +71,6 @@ namespace Midihau
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
                 int keyCode = Marshal.ReadInt32(lParam);
-
-#if DEBUG
-                if ((Keys)keyCode == Keys.Escape)
-                    Application.Exit();
-#endif
                 onKeyPressed?.Invoke(null, new KeyPressedEventArgs((Keys)keyCode));
             }
 
