@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Midihau
 {
-    public class MidiMachine : IDisposable
+    class MidiMachine : IDisposable
     {
         private Thread thread;
         private AutoResetEvent startEvent;
@@ -72,11 +72,13 @@ namespace Midihau
                     stopEvent.Set();
                 }
 
-                while (currentTrack != null) ;
+                // Wait for thread to release currentTrack
+                while (Volatile.Read(ref currentTrack) != null) ;
 
                 if (track.Notes.Count == 0) return;
 
-                currentTrack = track;
+                Interlocked.Exchange(ref currentTrack, track);
+
                 startEvent.Set();
                 IsPlaying = true;
             }
@@ -89,7 +91,10 @@ namespace Midihau
                 if (IsPlaying)
                 {
                     stopEvent.Set();
-                    while (currentTrack != null) ;
+
+                    // Wait for thread to release currentTrack
+                    while (Volatile.Read(ref currentTrack) != null) ;
+
                     IsPlaying = false;
                 }
             }
@@ -106,7 +111,7 @@ namespace Midihau
                     var currentNote = 0;
                     var currentTime = 0.0f;
 
-                    while (!stopEvent.WaitOne(0))
+                    while (Wait(0))
                     {
                         if (currentTrack.Notes.Count > 0)
                         {
@@ -115,10 +120,8 @@ namespace Midihau
 
                             var sleepTime = (int)((note.StartTime - currentTime) * 1000);
 
-                            if (Wait(sleepTime))
-                            {
-                                break;
-                            }
+                            if (!Wait(sleepTime)) break;
+
                             notePlayer.Play(note);
 
                             currentTime = note.StartTime;
@@ -127,12 +130,12 @@ namespace Midihau
                                 currentNote = 0;
                                 currentTime = 0;
 
-                                if (Wait(250)) break;
+                                if (!Wait(250)) break;
                             }
                         }
                     }
 
-                    currentTrack = null;
+                    Interlocked.Exchange(ref currentTrack, null);
                 }
             }
             catch(ThreadAbortException)
@@ -143,7 +146,7 @@ namespace Midihau
         private bool Wait(int milliseconds)
         {
             // TODO: Spinlock for more accurate timings?
-            return stopEvent.WaitOne(milliseconds);
+            return !stopEvent.WaitOne(milliseconds);
         }
 
         private bool disposedValue = false;
