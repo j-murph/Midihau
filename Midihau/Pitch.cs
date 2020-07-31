@@ -1,6 +1,6 @@
 ﻿namespace Midihau
 {
-    public enum Pitch
+    enum Pitch
     {
         C = 0,
         CSharp = 1,

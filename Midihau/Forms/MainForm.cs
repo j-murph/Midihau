@@ -9,7 +9,7 @@ using Midihau.Controls;
 
 namespace Midihau.Forms
 {
-    public partial class MainForm : Form
+    partial class MainForm : Form
     {
         private IEnumerable<string> midiFiles;
         private MidiMachine midiMachine;

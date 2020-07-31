@@ -1,6 +1,6 @@
 ﻿namespace Midihau
 {
-    public class SimpleMidiNote
+    class SimpleMidiNote
     {
         public Pitch Pitch { get; set; }
 

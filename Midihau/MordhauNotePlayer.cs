@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Midihau
 {
-    public class MordhauNotePlayer : INotePlayer
+    class MordhauNotePlayer : INotePlayer
     {
         // EQUIPMENTCOMMAND
         private static DirectXKey[] equipKeys = new DirectXKey[]

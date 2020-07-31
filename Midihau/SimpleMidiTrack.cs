@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Midihau
 {
-    public class SimpleMidiTrack
+    class SimpleMidiTrack
     {
         public IList<SimpleMidiNote> Notes { get; } = new List<SimpleMidiNote>();
 

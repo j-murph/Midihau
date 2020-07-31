@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Midihau
 {
-    public interface INotePlayer
+    interface INotePlayer
     {
         void Play(SimpleMidiNote note);
     }
