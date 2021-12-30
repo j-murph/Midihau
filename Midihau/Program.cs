@@ -19,7 +19,7 @@ namespace Midihau
             {
                 GlobalKeyListener.Start();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show($"Error creating keyboard hook: {e.Message}.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -32,7 +32,7 @@ namespace Midihau
                     Application.Run(new MainForm(midiMachine));
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }

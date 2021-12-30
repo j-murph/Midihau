@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="Controls\KeySelectorEvents.cs" />
     <Compile Include="DirectXKey.cs" />
+    <Compile Include="ControlHelper.cs" />
     <Compile Include="GlobalKeyListener.cs" />
     <Compile Include="INotePlayer.cs" />
     <Compile Include="Forms\MainForm.cs">

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Media;
 using System.Text;
-using System.Threading;
 using Commons.Music.Midi;
 
 namespace Midihau

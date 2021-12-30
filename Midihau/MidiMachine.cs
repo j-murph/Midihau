@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 
 namespace Midihau
@@ -13,7 +12,7 @@ namespace Midihau
         private object actionLock = new object();
         public bool IsPlaying { get; private set; }
 
-        private SimpleMidiTrack currentTrack;
+        private volatile SimpleMidiTrack currentTrack;
 
         private INotePlayer notePlayer;
 
@@ -33,7 +32,7 @@ namespace Midihau
                 thread = new Thread(ThreadProc);
                 thread.Start();
             }
-            catch(Exception)
+            catch (Exception ex)
             {
                 if (startEvent != null)
                 {
@@ -57,7 +56,7 @@ namespace Midihau
                     thread = null;
                 }
 
-                throw;
+                throw ex;
             }
         }
 
@@ -73,7 +72,7 @@ namespace Midihau
                 }
 
                 // Wait for thread to release currentTrack
-                while (Volatile.Read(ref currentTrack) != null) ;
+                while (currentTrack != null) ;
 
                 if (track.Notes.Count == 0) return;
 
@@ -93,7 +92,7 @@ namespace Midihau
                     stopEvent.Set();
 
                     // Wait for thread to release currentTrack
-                    while (Volatile.Read(ref currentTrack) != null) ;
+                    while (currentTrack != null) ;
 
                     IsPlaying = false;
                 }
@@ -138,7 +137,7 @@ namespace Midihau
                     Interlocked.Exchange(ref currentTrack, null);
                 }
             }
-            catch(ThreadAbortException)
+            catch (ThreadAbortException)
             {
             }
         }
@@ -162,6 +161,9 @@ namespace Midihau
                         thread.Abort();
                         thread = null;
                     }
+
+                    startEvent?.Dispose();
+                    stopEvent?.Dispose();
                 }
 
                 disposedValue = true;

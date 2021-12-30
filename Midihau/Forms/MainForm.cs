@@ -74,7 +74,7 @@ namespace Midihau.Forms
                 midiFiles = Directory.EnumerateFiles(path, "*.mid");
                 ApplyFilter(txtFilter.Text);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ShowError(e.Message);
             }
@@ -104,18 +104,25 @@ namespace Midihau.Forms
 
         private void LoadMidiFile(string filePath)
         {
-            midiMusic = MidiMusic.Read(File.OpenRead(filePath));
-            if (midiMusic.Tracks.Any())
+            try
             {
-                var track = midiMusic.Tracks[0];
-                currentTrack = MidiHelper.ToSimpleMidiTrack(track, midiMusic.DeltaTimeSpec);
-
-                cbTrack.Items.Clear();
-                for (int x = 1; x <= midiMusic.Tracks.Count; x++)
+                midiMusic = MidiMusic.Read(File.OpenRead(filePath));
+                if (midiMusic.Tracks.Any())
                 {
-                    cbTrack.Items.Add(x);
+                    var track = midiMusic.Tracks[0];
+                    currentTrack = MidiHelper.ToSimpleMidiTrack(track, midiMusic.DeltaTimeSpec);
+
+                    cbTrack.Items.Clear();
+                    for (int x = 1; x <= midiMusic.Tracks.Count; x++)
+                    {
+                        cbTrack.Items.Add(x);
+                    }
+                    cbTrack.SelectedIndex = 0;
                 }
-                cbTrack.SelectedIndex = 0;
+            }
+            catch (Exception e)
+            {
+                ShowError(e.Message);
             }
         }
 
@@ -126,10 +133,7 @@ namespace Midihau.Forms
 
         private void SetPlaying(bool playing)
         {
-            if (InvokeRequired)
-                Invoke(new Action(() => { lblPlaying.Visible = playing; }));
-            else
-                lblPlaying.Visible = playing;
+            this.SafeInvoke(new Action(() => { lblPlaying.Visible = playing; }));
         }
 
         private void ShowError(string error, string caption = "Error")
@@ -181,7 +185,6 @@ namespace Midihau.Forms
                 catch (Exception ex)
                 {
                     ShowError($"Error loading ${filePath}: ${ex.Message}");
-                    SetReady(true);
                 }
 
                 midiMachine.StopTrack();
