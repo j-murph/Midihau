@@ -133,7 +133,7 @@ namespace Midihau.Forms
 
         private void SetPlaying(bool playing)
         {
-            this.SafeInvoke(new Action(() => { lblPlaying.Visible = playing; }));
+            this.SafeInvoke(() => { lblPlaying.Visible = playing; });
         }
 
         private void ShowError(string error, string caption = "Error")
